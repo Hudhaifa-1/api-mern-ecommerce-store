@@ -29,7 +29,6 @@ app.use(cors({
   credentials: true
 }));
 
-app.options("*", cors());
 
 
 app.use(express.json({ limit: "10mb" })); // allows you to parse the body of the request
