@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 const User = require('../models/user.model');
 
-const protectRoute = async (req, res, next) => {
+export const protectRoute = async (req, res, next) => {
   try {
     let accessToken = req.cookies.accessToken; // Changed from const to let
 
@@ -37,7 +37,7 @@ const protectRoute = async (req, res, next) => {
 };
 
 
-const adminRoute = (req, res, next) => {
+export const adminRoute = (req, res, next) => {
   if (req.user && req.user.role == "admin") {
     next();
   } else {
@@ -45,4 +45,3 @@ const adminRoute = (req, res, next) => {
   }
 };
 
-module.exports = {protectRoute, adminRoute };
