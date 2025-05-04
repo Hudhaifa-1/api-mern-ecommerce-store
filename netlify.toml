@@ -1,0 +1,13 @@
+[functions]
+  directory = "netlify/functions"
+  node_bundler = "esbuild"
+  external_node_modules = ["express", "cookie-parser", "dotenv", "mongoose" ] # add all your dependencies here
+
+[[redirects]]
+  from = "/*"
+  to = "/.netlify/functions/api/:splat"
+  status = 200
+
+  [build]
+  functions = "netlify/functions"
+  command = "npm run build"  # Or "echo 'No build needed'" if no frontend
