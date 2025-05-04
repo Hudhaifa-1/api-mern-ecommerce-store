@@ -5,9 +5,9 @@ export const protectRoute = async (req, res, next) => {
   try {
     const accessToken = req.cookies.accessToken;
 
-    if (!accessToken && req.headers?.authorization?.startsWith("Bearer ")) {
-      accessToken = req.headers.authorization.split(" ")[1];
-    }
+    // if (!accessToken && req.headers?.authorization?.startsWith("Bearer ")) {
+    //   accessToken = req.headers.authorization.split(" ")[1];
+    // }
 
     if (!accessToken) {
       return res

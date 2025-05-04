@@ -38,21 +38,16 @@ const corsOptions = {
   allowedHeaders: ['Content-Type', 'Authorization']
 };
 
-app.use(cors({corsOptions, credentials: true}));
+app.use(cors(corsOptions));
 
-app.options("*", cors());
-
-app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "https://mern-ecommerce-store-website.vercel.app");
-  res.header("Access-Control-Allow-Credentials", "true");
-  res.header("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
-  next();
-});
-
-app.options("*", (req, res) => {
-  res.sendStatus(200);
-});
+// Handle preflight requests for all routes
+// app.options('*', (req, res) => {
+//   res.setHeader('Access-Control-Allow-Origin', req.headers.origin || '*');
+//   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+//   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+//   res.setHeader('Access-Control-Allow-Credentials', 'true');
+//   res.status(200).send();
+// });
 
 app.use(express.json({ limit: "10mb" })); // allows you to parse the body of the request
 app.use(cookieParser()); // allows you to parse cookies
