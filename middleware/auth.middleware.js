@@ -5,6 +5,10 @@ export const protectRoute = async (req, res, next) => {
   try {
     const accessToken = req.cookies.accessToken;
 
+    if (!accessToken && req.headers.authorization?.startsWith("Bearer ")) {
+      accessToken = req.headers.authorization.split(" ")[1];
+    }
+
     if (!accessToken) {
       return res
         .status(401)
@@ -18,7 +22,6 @@ export const protectRoute = async (req, res, next) => {
       if (!user) {
         return res.status(401).json({ message: "User not found" });
       }
-      console.log("user123: ", decoded.userId);
 
       req.user = user;
 
