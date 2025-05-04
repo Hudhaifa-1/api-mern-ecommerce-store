@@ -2,17 +2,17 @@ import express from "express";
 import dotenv from "dotenv";
 import serverless from "serverless-http";
 
-import authRoutes from "../../routes/auth.route.js";
-import productRoutes from "../../routes/product.route.js";
-import categoryRoutes from "../../routes/category.route.js";
-import cartRoutes from "../../routes/cart.route.js";
-import couponRoutes from "../../routes/coupon.route.js";
-import paymentRoutes from "../../routes/payment.route.js";
-import orderRoutes from "../../routes/order.route.js";
-import analyticsRoutes from "../../routes/analytics.route.js";
-import { connectDB } from "../../lib/db.js";
+import authRoutes from "../../../routes/auth.route.js";
+import productRoutes from "../../../routes/product.route.js";
+import categoryRoutes from "../../../routes/category.route.js";
+import cartRoutes from "../../../routes/cart.route.js";
+import couponRoutes from "../../../routes/coupon.route.js";
+import paymentRoutes from "../../../routes/payment.route.js";
+import orderRoutes from "../../../routes/order.route.js";
+import analyticsRoutes from "../../../routes/analytics.route.js";
+import { connectDB } from "../../../lib/db.js";
 import cookieParser from "cookie-parser";
-import "../../lib/couponCleaner.js";
+import "../../../lib/couponCleaner.js";
 
 dotenv.config();
 
