@@ -5,17 +5,20 @@ export const protectRoute = async (req, res, next) => {
   try {
     const accessToken = req.cookies.accessToken;
 
-    // if (!accessToken && req.headers?.authorization?.startsWith("Bearer ")) {
-    //   accessToken = req.headers.authorization.split(" ")[1];
-    // }
-
-    if (!accessToken) {
-      return res
-        .status(401)
-        .json({ message: "Unauthorized - No access token provided" });
-    }
-
     try {
+      console.log('entering cookies checking: ', req.cookies);
+      console.log('entering cookies checking: ', req.headers?.authorization);
+      
+      if (!accessToken && req.headers?.authorization?.startsWith("Bearer ")) {
+        accessToken = req.headers.authorization.split(" ")[1];
+      }
+
+      if (!accessToken) {
+        return res
+          .status(401)
+          .json({ message: "Unauthorized - No access token provided" });
+      }
+
       const decoded = jwt.verify(accessToken, process.env.ACCESS_TOKEN_SECRET);
       const user = await User.findById(decoded.userId).select("-password");
 
