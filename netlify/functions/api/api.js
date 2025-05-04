@@ -1,6 +1,7 @@
 import express from "express";
 import dotenv from "dotenv";
 import serverless from "serverless-http";
+import cors from "cors";
 
 import authRoutes from "../../../routes/auth.route.js";
 import productRoutes from "../../../routes/product.route.js";
@@ -18,15 +19,18 @@ dotenv.config();
 
 const app = express();
 
-// Database connection handler
-// let dbConnection;
-// const connectDBOnce = async () => {
-//   console.log("Connecting to MongoDB 0...");
-//   if (!dbConnection) {
-//     dbConnection = await connectDB();
-//   }
-//   return dbConnection;
-// };
+const allowedOrigins = [
+  "https://mern-ecommerce-store-website.vercel.app",
+  "http://localhost:5173" 
+];
+
+app.use(cors({
+  origin: allowedOrigins,
+  credentials: true
+}));
+
+app.options("*", cors());
+
 
 app.use(express.json({ limit: "10mb" })); // allows you to parse the body of the request
 app.use(cookieParser()); // allows you to parse cookies
@@ -44,14 +48,8 @@ app.get("/", (req, res) => {
   res.send("API is running");
 });
 
-// Database connection middleware
-// app.use(async (req, res, next) => {
-//   console.log("Connecting to MongoDB -1...");
 
-//     await connectDBOnce();
    connectDB();
-//   next();
-// });
 
 // Error handling middleware (add this if missing)
 app.use((err, req, res, next) => {
