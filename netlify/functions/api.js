@@ -21,7 +21,7 @@ const app = express();
 app.use(cookieParser()); // allows you to parse cookies
 
 const allowedOrigins = [
-  "https://mern-ecommerce-store-website.vercel.app",
+  "https://mern-ecommerce-website-store.netlify.app",
   "http://localhost:5173",
 ];
 
