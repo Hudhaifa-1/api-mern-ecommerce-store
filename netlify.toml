@@ -9,6 +9,15 @@
   external_node_modules = ["express", "cookie-parser", "dotenv", "mongoose" ] # add all your dependencies here
 
 [[redirects]]
-  from = "/*"
+  from = "/api/*"
   to = "/.netlify/functions/api/:splat"
   status = 200
+
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    Access-Control-Allow-Origin = "https://mern-ecommerce-store-website.vercel.app, http://localhost:5173"
+    Access-Control-Allow-Methods = "GET, POST, PUT, DELETE, OPTIONS"
+    Access-Control-Allow-Headers = "Content-Type, Authorization"
+    Access-Control-Allow-Credentials = "true"
