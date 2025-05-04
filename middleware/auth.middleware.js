@@ -36,7 +36,6 @@ const protectRoute = async (req, res, next) => {
   }
 };
 
-module.exports = { protectRoute };
 
 const adminRoute = (req, res, next) => {
   if (req.user && req.user.role == "admin") {
@@ -46,4 +45,4 @@ const adminRoute = (req, res, next) => {
   }
 };
 
-module.exports = { adminRoute };
+module.exports = {protectRoute, adminRoute };
