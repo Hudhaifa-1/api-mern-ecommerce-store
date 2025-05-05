@@ -65,10 +65,6 @@ export const signup = async (req, res) => {
     if(! testPhoneNumber(phone)){
       return res.status(400).json({ message: "Invalid phone number." });
     }
-
-    if(!phone.toString().startsWith("0")){
-      phone = 0 + phone
-    }
     
 
     const user = await User.create({ email, password, name, phone, address });
