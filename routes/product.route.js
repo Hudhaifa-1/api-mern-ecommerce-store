@@ -9,7 +9,7 @@ router.get('/featured', getFeaturedProducts)
 router.get('/category/:category', getProductsByCategory)
 router.get('/recommendations', getRecommendedProducts)
 router.post('/', protectRoute, adminRoute , createProduct);
-router.patch('/:id', protectRoute, adminRoute , updateProduct);
+router.put('/:id', protectRoute, adminRoute , updateProduct);
 router.delete('/:id', protectRoute, adminRoute , deleteProduct);
 router.get('/:id', protectRoute, adminRoute , getProductById);
 router.post('/toggle-featured/:id', protectRoute, adminRoute , toggleFeaturedProduct);

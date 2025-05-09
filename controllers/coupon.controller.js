@@ -3,8 +3,6 @@ import Coupon from "../models/coupon.model.js";
 export const getCoupon = async (req, res) => {
   try {
     const user = req.user;
-    console.log(user);
-    
     const coupon = await Coupon.findOne({ userId: user._id, isActive: true });
 
     return res.status(200).json(coupon || null);

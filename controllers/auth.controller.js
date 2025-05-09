@@ -86,7 +86,8 @@ export const signup = async (req, res) => {
         email: user.email,
         role: user.role,
       },
-      accessToken
+      accessToken,
+      refreshToken
     });
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -98,7 +99,7 @@ export const login = async (req, res) => {
     const { email, password } = await req.body;
 
     const user = await User.findOne({ email });
-
+    
     if (!user || !(await user.comparePassword(password))) {
       return res.status(401).json({ message: "Invalid credentials." });
     }
@@ -116,7 +117,8 @@ export const login = async (req, res) => {
         email: user.email,
         role: user.role,
       },
-      accessToken
+      accessToken,
+      refreshToken
     });
   } catch (error) {
     res.status(500).json({ message: "Server error", error: error.message });
@@ -125,7 +127,7 @@ export const login = async (req, res) => {
 
 export const logout = async (req, res) => {
   try {
-    const refreshToken = req.cookies.refreshToken;
+    const refreshToken = req.cookies.refreshToken || req.body?.refreshToken;
 
     const decoded = jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET);
 
@@ -142,17 +144,18 @@ export const logout = async (req, res) => {
 // This function will be used to refresh the access token using the refresh token
 export const refreshToken = async (req, res) => {
   try {
-    const refreshToken = req.cookies.refreshToken;
+
+    const refreshToken = req.cookies.refreshToken || req.body?.refreshToken;
 
     if (!refreshToken) {
       return res.status(401).json({ message: "No refresh token provided." });
     }
 
-    const decoded = jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET);
+    const decoded =  jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET);
     const storedRefreshToken = await redis.get(
       `refresh_token:${decoded.userId}`
     );
-
+    
     if (storedRefreshToken !== refreshToken) {
       return res.status(403).json({ message: "Invalid refresh token." });
     }
@@ -171,12 +174,8 @@ export const refreshToken = async (req, res) => {
 
 export const getProfile = async (req, res) => {
   try {
-    console.log(req.user);
-
     res.json(req.user);
   } catch (error) {
-    console.log(error);
-
     res.status(500).json({ message: "Server error", error: error.message });
   }
 };

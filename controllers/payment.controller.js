@@ -24,21 +24,17 @@ export const prepareOrderForPayment = async (req, res) => {
 
     let coupon = null;
     if (couponCode) {
-      console.log("userId: ", user._id);
-      console.log("date: ", currentDate);
-      
       coupon = await Coupon.findOne({
         code: couponCode,
         userId: user._id,
         isActive: true,
         expirationDate: { $gt: currentDate },
       });
-      
-      console.log("couponCode: ", coupon);
-
 
       if (coupon) {
-        totalAmount -= Math.round(totalAmount * (coupon.discountPercentage / 100));
+        totalAmount -= Math.round(
+          totalAmount * (coupon.discountPercentage / 100)
+        );
         coupon.isActive = false; // Mark the coupon as used
         await coupon.save();
       }
@@ -67,8 +63,6 @@ export const prepareOrderForPayment = async (req, res) => {
 };
 
 async function createNewCoupon(userId) {
-  console.log('coupone: ', userId);
-  
   const newCoupon = new Coupon({
     code: "GIFT" + Math.random().toString(36).substring(2, 8).toUpperCase(),
     discountPercentage: 10,
@@ -83,10 +77,6 @@ async function createNewCoupon(userId) {
 
 async function createOrder(userId, products, totalAmount) {
   try {
-    console.log("userId: ", userId);
-    console.log("products: ", products);
-    console.log("totalAmount: ", totalAmount);
-
     const order = new Order({
       user: userId,
       products: products.map((product) => ({
@@ -94,7 +84,7 @@ async function createOrder(userId, products, totalAmount) {
         quantity: product.quantity,
         price: product.price,
       })),
-      totalAmount: totalAmount,
+      totalAmount: Number(totalAmount.toFixed(2)),
     });
 
     await order.save();

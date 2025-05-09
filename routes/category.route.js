@@ -9,6 +9,6 @@ router.get("/list", protectRoute, adminRoute, getCategoryList)
 router.get("/", getAllCategories)
 router.post("/", protectRoute, adminRoute, createCategory)
 router.get("/:id", protectRoute, adminRoute, getCategoryById)
-router.patch("/:id", protectRoute, adminRoute, updateCategory)
+router.put("/:id", protectRoute, adminRoute, updateCategory)
 
 export default router;

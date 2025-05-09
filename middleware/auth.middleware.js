@@ -10,10 +10,6 @@ export const protectRoute = async (req, res, next) => {
       accessToken = req.headers.authorization.split(" ")[1];
     }
 
-    console.log("accessToken cookie: ", req.cookies.accessToken);
-    console.log("accessToken: ", accessToken);
-    console.log("user: ", User);
-    
     
     if (!accessToken) {
       return res.status(401).json({ message: "Unauthorized - No token provided" });
@@ -21,8 +17,6 @@ export const protectRoute = async (req, res, next) => {
     
     try {
       const decoded = jwt.verify(accessToken, process.env.ACCESS_TOKEN_SECRET);
-      console.log("decoded: ", decoded);
-      console.log("decoded user id: ", decoded.userId);
 
       const user = await User.findById(decoded.userId).select("-password");
 
