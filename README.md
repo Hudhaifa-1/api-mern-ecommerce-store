@@ -17,7 +17,7 @@ A full-stack e-commerce web application built with React, Node.js, Express, and 
 ![Homepage](./public/screenshots/home.png)
 
 ### Product Page
-![Product Page](./public/screenshots/product.png)
+![Product Page](./public/screenshots/product.jpeg)
 
 ### Admin Dashboard
 ![Dashboard](./public/screenshots/dashboard.png)
